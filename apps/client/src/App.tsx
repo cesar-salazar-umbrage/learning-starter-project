@@ -5,11 +5,18 @@ import './App.css'
 
 function App() {
   const [greeting, setGreeting] = useState('');
+  const [cat, setCat] = useState('');
 
   useEffect(() => {
     fetch('/api')
       .then((res) => res.text())
       .then(setGreeting)
+  }, []);
+
+  useEffect(() => {
+    fetch('https://catfact.ninja/fact')
+      .then((res) => res.json())
+      .then((json) => setCat(json.fact))
   }, []);
 
   return (
@@ -23,6 +30,8 @@ function App() {
         </a>
       </div>
       <h1>{greeting}</h1>
+      <h2>Here's Your Random Cat Fat of the Day</h2>
+      <p>{cat}</p>
     </>
   )
 }
